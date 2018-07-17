@@ -1,6 +1,6 @@
 FROM ubuntu:latest
 RUN apt-get update -y
-RUN apt-get install -y python3.6 python3-pip python3-dev build-essential libxml2-dev libxslt1-dev nginx
+RUN apt-get install -y git python3.6 python3-pip python3-dev build-essential libxml2-dev libxslt1-dev nginx
 RUN git clone https://github.com/foomoto/sentiment-analysis-nbayes-tflow.git
 WORKDIR sentiment-analysis-nbayes-tflow
 RUN pip3 install virtualenv
