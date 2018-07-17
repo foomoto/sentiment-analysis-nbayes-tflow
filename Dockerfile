@@ -9,4 +9,4 @@ RUN pip3 install virtualenv
 RUN virtualenv venv
 RUN /bin/bash -c "source venv/bin/activate"
 RUN pip3 install -r requirements.txt
-CMD ["uwsgi", "--http", "0.0.0.0:80", "--wsgi-file", "www/web.py", "--callable", "app", "--processes", "40", "--threads", "4"]
+ENTRYPOINT ["/start.sh"]
