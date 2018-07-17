@@ -5,7 +5,7 @@ RUN git clone https://github.com/foomoto/sentiment-analysis-nbayes-tflow.git
 WORKDIR sentiment-analysis-nbayes-tflow
 RUN pip3 install virtualenv
 RUN virtualenv venv
-RUN source venv/bin/activate
+RUN /bin/bash -c "source venv/bin/activate"
 RUN pip3 install -r requirements.txt
 ENTRYPOINT ["uwsgi"]
 CMD ["--http", "0.0.0.0:80", "--wsgi-file", "www/web.py", "--callable", "app", "--processes", "10", "--threads", "2", "--stats", "0.0.0.0:9191"]
