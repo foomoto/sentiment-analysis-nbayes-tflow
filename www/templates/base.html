@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en" class="h-100">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>NLP Predictor | Tensorflow & NBayes</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="{{ url_for('static', filename='bootstrap/css/bootstrap.min.css') }}" rel="stylesheet">
+    <link href="{{ url_for('static', filename='app.css') }}" rel="stylesheet">
+
+
+    <!-- Custom styles for this template -->
+    <style>
+      body {
+        padding-top: 54px;
+      }
+      @media (min-width: 992px) {
+        body {
+          padding-top: 56px;
+        }
+      }
+
+
+
+    </style>
+
+</head>
+
+<body
+        {% if route !="home" %}
+        class="no-padding results Frame"
+        {% endif %} style="background: rgb(255, 255, 255)" class="Frame">
+<div id="content" class="Row Expand">{% block content %}{% endblock %}</div>
+<footer class="Row">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4 hidden">
+                <a href="#">Recommend someone</a>
+            </div>
+            <div class="col-md-12">
+
+            </div>
+            <div class="col-md-4 hidden">
+                <a href="#">Add local store price</a>
+            </div>
+        </div>
+    </div>
+</footer>
+
+</body>
+
+<!-- Bootstrap core JavaScript -->
+<script src="{{ url_for('static', filename='jquery/jquery.min.js') }}"></script>
+<script src="{{ url_for('static', filename='bootstrap/js/bootstrap.bundle.min.js') }}"></script>
+<script src="{{ url_for('static', filename='bootstrap/js/typeahead.js') }}"></script>
+<script type="text/javascript">
+
+    $(document).ready(function(){
+        $('[data-toggle="tooltip"]').tooltip();
+    });
+    $('input.typeahead').typeahead({
+        minLength: 2,
+        highlight: true,
+        hint: true,
+        limit: 10,
+        source:  function (query, process) {
+                return $.get('/search', { q: query, auto : false }, function (data) {
+                console.log(data);
+                data.unshift({"title" : query})
+                return process(data);
+            });
+        },
+        displayText: function(item){ return item.title;}
+        ,updater:function (item) {
+            location.href = '/search?q=' + encodeURIComponent(item.title)
+            return item
+        }
+    });
+
+    $('input.typeahead').on('keydown', function(e) {
+  if (e.keyCode == 13) {
+    console.log('no enter');
+    e.stopPropagation();
+  }});
+
+
+
+
+</script>
+
+</html>

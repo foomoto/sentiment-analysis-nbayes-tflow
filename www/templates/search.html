@@ -1,0 +1,91 @@
+{% extends "base.html" %}
+{% block content %}
+{% include 'search_header.html' %}
+<div class="container">
+    <div class="row">
+        <div class="offset-md-1">
+
+        </div>
+        <div class="col-md-11 col-lg-8">
+            <div class="results-stats">{{ 'Found' if count < 1000000 else 'About' }} {{ '{:20,.0f}'.format(count) }} results ({{ secs }} seconds)</div>
+            {% for product in items %}
+                <div class="card card-outline-secondary my-4 container">
+                <div class="row pad-row">
+                    <div class="col-md-2">
+                        <a data-toggle="tooltip" title="Click to go to {{ product.best_store_name }}. Best Price" href="{{ product.best_url }}"><img class="product-icon" src="{{ extract_image_url(product.best_url, product.image_url) }}"></a>
+                    </div>
+                    <div class="col-md-10 no-padding-left">
+                        <h5 class="result-title"><a class="title-link" data-toggle="tooltip" title="Click to go to {{ product.best_store_name }}. Best Price" href="{{ product.best_url }}">{{ product.title }}</a></h5> <p class="aux hidden">in Mobile Phones</p>
+                        <p class="result-info"><span class="price-hint">Best price is from {{ product.best_store_name }}:
+                            <a data-toggle="tooltip" title="Click to go to {{ product.best_store_name }}. Best Price" style="display:inline" href="{{ product.best_url }}"> ₦ {{ '{:20,.2f}'.format(product.best_price) }}</a>
+                            {% if product.prices|length > 1 %}
+                                <a href="#" role="button" data-toggle="collapse" data-target="#collapseExample{{ loop.index }}"
+                                   aria-expanded="false" aria-controls="collapseExample" style="display:block; color: #999">{{ product.prices|length }} prices available from {{ product.store_count }}
+                                    {{ 'merchants' if product.store_count > 1 else 'merchant' }} </a>
+                            {% endif %}
+                        </span>
+                        </p>
+                        <ul class="hidden list-inline result-actions">
+                            <li class="list-inline-item">
+                                 <span class="price-hint">Starting from N 200.00</span>
+                            </li>
+                            <li class="list-inline-item hidden"><a href="#">30 New</a> <span class="price-hint">Starting from N 200.00 (+)</span></li>
+                            <li class="list-inline-item hidden"><a href="#">30 In-Stores</a> <span class="price-hint">Starting from N 500.00</span></li>
+                        </ul>
+                        <div class="collapse table-responsive" id="collapseExample{{ loop.index }}">
+                            <table class="table table-sm result-prices">
+                                <thead>
+                                <tr>
+                                    <th scope="col"></th>
+                                    <th scope="col"></th>
+                                    <th scope="col"></th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                {% for price in product.prices %}
+                                <tr>
+                                    <!--<td><a href="{{ url_for('search', q='merchant:' + price.store_name) }}">{{ price.store_name }}</a></td>-->
+                                    <td><b style="color: #444; font-size:14px">{{ price.store_name }}</b></td>
+                                    <td><a target="_blank" href="{{ price.url }}">{{ price.title }}</a></td>
+                                    <td class="fit" style="text-align:right; font-weight:bold">₦ {{ '{:20,.2f}'.format(price.price) }}</td>
+                                </tr>
+                                {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% else %}
+            <div class="row pad-row">
+                <div class="col-sm-12">
+                    <h5>Sorry we have no results for "{{ q }}"</h5>
+                    <h6>We are always searching the web and local stores. Subscribe to this search result and will notify you first when discover great prices</h6>
+                    <form method="POST" action="/subscribe">
+                        <div class="input-group">
+                            <input type="hidden" class="form-control" name="q" value="{{q}}" placeholder="Enter email address" aria-describedby="basic-addon2">
+                            <input type="text" class="form-control" name="email" placeholder="Enter email address" aria-describedby="basic-addon2">
+                          <div class="input-group-append">
+                            <button class="btn btn-outline-secondary btn-success" type="submit">Notify Me</button>
+                          </div>
+                        </div>
+                    </form>
+                    <br>
+                    <a target="_blank" class="btn btn-secondary" href="https://www.google.com/search?q={{q}}">Search Google</a>
+                </div>
+            </div>
+            {% endfor %}
+
+            <div class="btn-group mr-2 hidden" role="group" aria-label="First group">
+                <button type="button" class="btn btn-secondary">1</button>
+                <button type="button" class="btn btn-secondary">2</button>
+                <button type="button" class="btn btn-secondary">3</button>
+                <button type="button" class="btn btn-secondary">4</button>
+            </div>
+        </div>
+        <div class="col-md-5">
+
+        </div>
+    </div>
+</div>
+{% endblock %}

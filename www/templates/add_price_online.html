@@ -1,0 +1,137 @@
+{% extends "base.html" %}
+{% block content %}
+<script>
+    var update_image = function (id) {
+        console.log($('#images option')[id]);
+        $('#images option').removeAttr('selected');
+        $($('#images option')[id - 1]).attr("selected", "selected");
+        $('.product_images a').removeClass('selected');
+        $('#product_image_'+id).addClass('selected')
+
+    }
+</script>
+{% include 'search_header.html' %}
+    {% if not product %}
+        <div class="container">
+            {% if message %}
+        <div class="container">
+            <div class="alert alert-info">
+                <strong>{{ message }}</strong>
+            </div>
+        </div>
+    {% endif %}
+    <div class="row">
+        <div class="col-md-6">
+            <p class="">Edey adds new sites to our index, and updates existing ones, every time we crawl the web. If you have a new URL, tell us about it here. We don't add all submitted URLs to our index, and we can't make predictions or guarantees about when or if submitted URLs will appear in our index.</p>
+            <form method="POST">
+                <input name="step" value="enter_url" type="hidden" />
+                <div class="form-group">
+                    <label for="product">Product Page Url</label>
+                    <input type="url" class="form-control" id="product" name="product_url" aria-describedby="emailHelp"
+                           placeholder="Enter product page url E.g http://myecommerce.com/product/1234">
+                    <small id="emailHelp" class="form-text text-muted">
+                       We may also add other products from this website
+                    </small>
+                </div>
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </form>
+        </div>
+    </div>
+</div>
+{% endif %}
+{% if product %}
+<div class="container">
+<form method="post">
+    <div class="card card-outline-secondary my-4 container">
+                <div class="row pad-row">
+                    <div class="col-md-2">
+                        <img class="product-icon" src="{{ extract_image_url(product.seed_url, product.image_url) }}">
+                    </div>
+                    <div class="col-md-10 no-padding-left">
+                        <h5 class="result-title">{{ product.title }}</h5> <p class="aux hidden">in Mobile Phones</p>
+                        <p class="result-info">
+                            <span class="price-hint">Sold by {{ product.domain }} at
+                                ₦ {{ '{:20,.2f}'.format(product.price) }}
+                            </span>
+                        </p>
+                    </div>
+                </div>
+        <div class="row collapse" id="collapseExample">
+            <hr>
+        <div class="col-md-8">
+            <input name="step" value="update_store" type="hidden" />
+            <h6>We need human help: Please confirm we got the right info</h6>
+                <div class="form-group">
+                    <label for="brand_name">Merchant Name</label>
+                    <input readonly type="text" class="form-control" name="merchant_name" id="brand_name"
+                           placeholder="Enter name" value="{{ product.domain }}">
+                    <input type="hidden" name="seed_url" value="{{ product.seed_url }}"/>
+                    <small class="form-text text-muted">
+                    </small>
+                </div>
+                <div class="form-group">
+                    <label for="title">Update Product Title (If we didnt get it right)</label>
+                    <select type="text" name="title" class="form-control" id="title">
+                        {% for item in product.titles %}
+                            {% if loop.index == 0 %}
+                                <option selected value="{{ item.path }}">{{ item.value }}</option>
+                            {% else %}
+                                <option value="{{ item.path }}">{{ item.value }}</option>
+                            {% endif %}
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="price">Update Product Price (If we didn't get it right)</label>
+                    <select type="text" class="form-control" id="price" name="price">
+                        {% for item in product.prices %}
+                            {% if loop.index == 0 %}
+                                <option selected value="{{ item.path }}">{{ item.value }}</option>
+                            {% else %}
+                                <option value="{{ item.path }}">{{ item.value }}</option>
+                            {% endif %}
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="images">Update Product Image (If we didnt get it right)</label>
+                    <select type="text" class="form-control hidden" id="images" name="image_path">
+                        {% for item in product.images %}
+                            {% if loop.index == 1 %}
+                                <option selected value="{{ item.path }}">{{ item.value }}</option>
+                            {% else %}
+                                <option value="{{ item.path }}">{{ item.value }}</option>
+                            {% endif %}
+                        {% endfor %}
+                    </select>
+                    <div class="row product_images">
+                        {% for image in product.images %}
+                            {% if loop.index == 1 %}
+                                {% set class='selected' %}
+                            {% else %}
+                                {% set class='unselected' %}
+                            {% endif %}
+                            <div class="col-md-6">
+                                <a id="product_image_{{ loop.index }}" href="javascript:void(0)" onclick="update_image({{ loop.index }})" class="{{ class }}" data-id="{{ loop.index }}">
+                                    <img src="{{ image.value }}"/>
+                                </a>
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+        </div>
+    </div>
+<hr>
+                <div class="row pad-row">
+                    <h4>Did we index this correctly?</h4>
+                    <div class="col-md-12">
+                        <button type="submit" class="btn btn-primary btn-sm">Submit</button>
+                        <button data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample" type="button" class="btn btn-danger btn-sm">Needs Update</button>
+                    </div>
+                </div>
+            </div>
+
+            </form>
+</div>
+{% endif %}
+{% endblock %}

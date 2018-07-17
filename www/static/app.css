@@ -1,0 +1,246 @@
+.typeahead.dropdown-menu .active {
+    background-color: #CCC !important;
+    color: white !important;
+}
+#scrollable-dropdown-menu .tt-dropdown-menu {
+  max-height: 150px;
+  overflow-y: auto;
+}
+.product_images a {
+    width: 100% !important;
+    height: auto !important;
+}
+
+.product_images {
+    max-height: 200px;
+    overflow-y: scroll;
+}
+
+a.selected {
+    border: 5px solid blue;
+    display: inline-block;
+    border-radius: 5px;
+}
+
+.product_images img {
+    width: 100%;
+    height: auto;
+}
+
+.result-prices td, .result-prices th, .result-prices tr {
+    border: none;
+    font-size: 14px;
+}
+
+.result-prices td:first-child {
+    padding-left: 0px;
+}
+
+.results .btn-secondary {
+    color: #fff;
+    background-color: #6894e8;
+    border-color: #ffffff;
+}
+
+.pad-row {
+    padding-top: 15px;
+    padding-bottom: 15px;
+}
+
+.aux {
+    color: grey;
+    display: inline;
+}
+
+.no-padding {
+    padding: 0 !important;
+}
+
+.no-padding-left {
+    padding-left: 0 !important;
+}
+
+.child-right {
+    text-align: right;
+}
+
+.child-left {
+    text-align: left;
+}
+
+.child-center {
+    text-align: center;
+}
+
+.results-header {
+    padding-top: 13px;
+    padding-bottom: 13px;
+    background: url(images/header_bg.png) repeat-x;
+    background-size: auto 100%;
+    border-bottom: 1px solid #f1f1f1;
+    margin-bottom: 15px
+}
+
+.results-stats {
+    font-weight: normal;
+    font-size: 14px;
+    color: #808080;
+    margin-top: 10px;
+    margin-bottom: -10px;
+}
+
+.result-title {
+    color: #0e0e0e;
+    display: inline;
+}
+
+.result-info {
+    margin-bottom: 5px;
+    font-size: medium;
+}
+
+.result-actions {
+    margin-bottom: 5px;
+    font-size: 14px;
+}
+
+.result-actions a:active {
+    color: blue;
+}
+
+#content {
+    height: auto;
+}
+
+html, body {
+    height: 100%;
+    margin: 0pt;
+}
+.Frame {
+    display: table;
+    height: 100%;
+    width: 100%;
+}
+.Row {
+    display: table-row;
+    height: 1px;
+}
+.Row.Expand {
+    height: auto;
+}
+
+.title-link {
+    color: black
+}
+
+.price-hint {
+    line-height: 2em;
+    font-size: 0.8em;
+    font-weight: bold;
+    color: green;
+    display: block;
+}
+
+.product-icon {
+    width: 100%;
+}
+
+h5.caption {
+    color: #ababab
+}
+
+footer a {
+    color: #949494;
+}
+
+.logo-small {
+    max-height: 46px;
+}
+
+.logo {
+    max-width: 200px;
+    margin-bottom: 15px;
+    margin-right: 22px;
+}
+
+.table td.fit,
+.table th.fit {
+    white-space: nowrap;
+    width: 1%;
+}
+
+input.btn-default {
+    background-image: -webkit-gradient(linear,left top,left bottom,from(#f5f5f5),to(#f1f1f1));
+    background-image: -webkit-linear-gradient(top,#f5f5f5,#f1f1f1);
+    -webkit-border-radius: 2px;
+    -webkit-user-select: none;
+    background-color: #f2f2f2;
+    border: 1px solid #f2f2f2;
+    border-radius: 2px;
+    color: #757575;
+    cursor: default;
+    font-family: arial,sans-serif;
+    font-size: 13px;
+    font-weight: bold;
+    margin: 11px 4px;
+    min-width: 100px;
+    text-align: center;
+}
+
+.hidden {
+    display: none
+}
+
+.mr-2 {
+    margin-bottom: 1.5rem!important
+}
+
+footer {
+    line-height: 40px;
+    width: 100%;
+    height: 60px;
+    line-height: 60px;
+    background-color: yellow;
+    background-color: #f5f5f5;
+    border-top: 1px solid #e4e4e4;
+    text-align: center;
+    margin-top: 15px;
+}
+
+.home-brand, .home-search-form {
+    display: block;
+    text-align: center;
+    width: 100%;
+}
+
+.search-area {
+    margin-top: 12px;
+    text-align: center;
+}
+
+.home-search-form {
+    margin: 0 auto;
+    position:relative;
+    height: 44px;
+    background-color: #fff;
+    vertical-align: top;
+    border-radius: 2px;
+    box-shadow: 0 2px 2px 0 rgba(0,0,0,0.16), 0 0 0 1px rgba(0,0,0,0.08);
+    transition: box-shadow 200ms cubic-bezier(0.4, 0.0, 0.2, 1);
+}
+
+.home-search-form input {
+    font: 16px arial,sans-serif;
+    line-height: 34px;
+    height: 34px !important;
+    border: none;
+    padding: 0px;
+    margin: 8px;
+    height: auto;
+    width: 100%;
+    background: url(data:image/gif;base64,R0lGODlhAQABAID/AMDAwAAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw%3D%3D) transparent;
+    position: absolute;
+    z-index: 6;
+    left: 0px;
+    outline: none;
+}

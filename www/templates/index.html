@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+{% block content %}
+{% if message %}
+<div class="container">
+    <div class="alert alert-info">
+      <strong>{{ message }}</strong>
+    </div>
+</div>
+{% endif %}
+<form method="get" action="">
+    <div class="container">
+        <div class="row  search-area">
+          <div class="col-sm-12 col-md-8 offset-md-2">
+              <div class="home-brand">
+                  <img src="{{ url_for('static', filename='images/' + image_name) }}" class="logo">
+                  <h5 class="caption">Hello, I can predict how you feel</h5>
+              </div>
+          </div>
+        </div>
+        <div class="row  search-area">
+            <div class="col-sm-12 col-md-6 offset-md-3">
+                <div class="home-search-form">
+                    <input required="required" typeahead-focus-first="false" autocomplete=off class="typeahead" name="q" type="text" placeholder="Tell me how you feel" />
+                </div>
+            </div>
+        </div>
+        <div class="row  search-area">
+            <div class="col-sm-12 col-md-8 offset-md-2">
+                <div class="btn-group btn-group-justified" role="group" aria-label="...">
+                    <div class="btn-group" role="group">
+                        <input type="submit" class="btn btn-default" value="Predict Naive Bayes" name="bayes"/>
+                    </div>
+                    <div class="btn-group" role="group">
+                        <!-- Tbis button will change based on user behaviour MAgic button -->
+                        <input type="submit" class="btn btn-default" value="Predict TensorFlow" name="tensor"/>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <br>
+        <br>
+        <br>
+        <br>
+      </div>
+
+</form>
+{% endblock %}
