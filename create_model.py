@@ -32,14 +32,16 @@ def rework_label(label):
 
 
 def vectorize_label(label):
-    if label == "neutral":
+    if label == "1.0":
         return 0
-    elif label == "sad":
+    elif label == "2.0":
         return 1
-    elif label == "happy":
+    elif label == "3.0":
         return 2
-    elif label == "anger":
+    elif label == "4.0":
         return 3
+    elif label == "5.0":
+        return 4
 
 
 def load_directory_data(directory):
@@ -49,31 +51,31 @@ def load_directory_data(directory):
     # print(set(data['sentiment']))
 
     data['rework_sentiment'] = data['sentiment'].apply(lambda x: rework_label(x))
-    data['label'] = data['rework_sentiment'].apply(lambda x: vectorize_label(x))
+    data['sentiment'] = data['rework_sentiment'].apply(lambda x: vectorize_label(x))
     # print(set(data['rework_sentiment']))
 
-    text_train, text_test, label_train, label_test = train_test_split(data['content'].tolist(),
-                                                                      data['label'].tolist(),
+    text_train, text_test, label_train, label_test = train_test_split(data['sentence'].tolist(),
+                                                                      data['sentiment'].tolist(),
                                                                       test_size=0.3)
 
-    train_df = pd.DataFrame({'sentence': text_train, 'label': label_train})
-    test_df = pd.DataFrame({'sentence': text_test, 'label': label_test})
+    train_df = pd.DataFrame({'sentence': text_train, 'sentiment': label_train})
+    test_df = pd.DataFrame({'sentence': text_test, 'sentiment': label_test})
 
     return train_df, test_df
 
 
-def build_model(directory="text_emotion.csv"):
+def build_model(directory="train_data.txt"):
     train_df, test_df = load_directory_data(directory)
     # Training input on the whole training set with no limit on training epochs.
     train_input_fn = tf.estimator.inputs.pandas_input_fn(
-        train_df, train_df["label"], num_epochs=None, shuffle=True)
+        train_df, train_df["sentiment"], num_epochs=None, shuffle=True)
 
     # Prediction on the whole training set.
     predict_train_input_fn = tf.estimator.inputs.pandas_input_fn(
-        train_df, train_df["label"], shuffle=False)
+        train_df, train_df["sentiment"], shuffle=False)
     # Prediction on the test set.
     predict_test_input_fn = tf.estimator.inputs.pandas_input_fn(
-        test_df, test_df["label"], shuffle=False)
+        test_df, test_df["sentiment"], shuffle=False)
 
     tf.logging.info("loading embeddings..")
     embedded_text_feature_column = hub.text_embedding_column(
@@ -88,7 +90,7 @@ def build_model(directory="text_emotion.csv"):
         optimizer=tf.train.AdamOptimizer(learning_rate=0.003),
         model_dir=MODE_DIR)
 
-    estimator.train(input_fn=train_input_fn, steps=250000)
+    estimator.train(input_fn=train_input_fn, steps=300000)
 
     train_eval_result = estimator.evaluate(input_fn=predict_train_input_fn)
     test_eval_result = estimator.evaluate(input_fn=predict_test_input_fn)

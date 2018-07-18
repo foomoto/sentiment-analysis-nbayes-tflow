@@ -8,7 +8,7 @@ import create_model as model_builder
 MODEL_NAME = 'dnn_estimator_hub'
 MODE_DIR = os.path.join(os.getcwd(), MODEL_NAME)
 
-PREDICTION_DICT = {b'0': '3.0', b'1': '2.0', b'2': '5.0', b'3': '1.0'}
+PREDICTION_DICT = {b'0': '1.0', b'1': '2.0', b'2': '3.0', b'3': '4.0', b'4': '5.0'}
 
 embedded_text_feature_column = hub.text_embedding_column(
     key="sentence",

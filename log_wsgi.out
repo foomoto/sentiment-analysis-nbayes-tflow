@@ -1,0 +1,16 @@
+*** Starting uWSGI 2.0.17.1 (64bit) on [Wed Jul 18 00:59:43 2018] ***
+compiled with version: 4.2.1 Compatible Apple LLVM 9.0.0 (clang-900.0.39.2) on 15 July 2018 20:53:39
+os: Darwin-17.3.0 Darwin Kernel Version 17.3.0: Thu Nov  9 18:09:22 PST 2017; root:xnu-4570.31.3~1/RELEASE_X86_64
+nodename: Folarins-MBP
+machine: x86_64
+clock source: unix
+detected number of CPU cores: 8
+current working directory: /Users/mrfobilli/IdeaProjects/AmazonReviews
+detected binary path: /Users/mrfobilli/IdeaProjects/AmazonReviews/venv/bin/uwsgi
+!!! no internal routing support, rebuild with pcre support !!!
+your processes number limit is 1418
+your memory page size is 4096 bytes
+detected max file descriptor number: 10240
+lock engine: OSX spinlocks
+thunder lock: disabled (you can enable it with --thunder-lock)
+bind(): Permission denied [core/socket.c line 769]
