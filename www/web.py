@@ -26,17 +26,28 @@ LOG_FORMAT = ('%(levelname) -10s %(asctime)s %(name) -30s %(funcName) '
 
 log = logging.getLogger(__name__)
 
+emotions = {'1.0': 'Angry or very unhappy',
+                '2.0' : 'Sad or moody',
+            '3.0' : 'Indifferent or neutral',
+            '4.0' : 'Somewhat happy',
+            '5.0' : 'Super excited'
+            }
 
 @app.route('/')
 def home():
     q = request.args.get('q')
     model = request.args.get('bayes')
     image = 'logo.png'
+    message = 'Hello, I can predict how you feel'
     if q is not None and model is not None:
-        image = bayes.predict(q)[0].split('.')[0] + '.png'
+        prediction = bayes.predict(q)[0]
+        message = emotions[prediction]
+        image = prediction.split('.')[0] + '.png'
     elif q is not None:
-        image = tensorflow.predict(q) + '.png'
-    return render_template("index.html", route='home', image_name=image)
+        prediction = tensorflow.predict(q)
+        message = emotions[prediction]
+        image = prediction.split('.')[0] + '.png'
+    return render_template("index.html", route='home', image_name=image, message=message)
 
 
 if __name__ == '__main__':
