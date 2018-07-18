@@ -8,4 +8,4 @@ RUN pip3 install virtualenv
 RUN virtualenv venv
 RUN /bin/bash -c "source venv/bin/activate"
 RUN pip3 install -r requirements.txt
-CMD /sentiment-analysis-nbayes-tflow/start.sh
+CMD /start.sh
