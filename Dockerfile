@@ -9,4 +9,5 @@ RUN pip3 install virtualenv
 RUN virtualenv venv
 RUN /bin/bash -c "source venv/bin/activate"
 RUN pip3 install -r requirements.txt
-CMD 'uwsgi --http 0.0.0.0:80 --wsgi-file www/web.py --callable app --processes 40 --threads 4 --stats 127.0.0.1:9191  > log_wsgi.out 2>&1&'
+CMD ['uwsgi', '--http', '0.0.0.0:80', '--wsgi-file', 'www/web.py', '--callable', 'app', '--processes', '40', '--threads', '4', '--stats',
+        '127.0.0.1:9191']
