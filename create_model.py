@@ -45,8 +45,7 @@ def vectorize_label(label):
 
 
 def load_directory_data(directory):
-    data = pd.read_csv(directory)
-
+    data = pd.read_csv(directory, sep=',', header=0)
     # print(data.head(5))
     # print(set(data['sentiment']))
 
@@ -64,7 +63,7 @@ def load_directory_data(directory):
     return train_df, test_df
 
 
-def build_model(directory="train_data.txt"):
+def build_model(directory="train_data.csv"):
     train_df, test_df = load_directory_data(directory)
     # Training input on the whole training set with no limit on training epochs.
     train_input_fn = tf.estimator.inputs.pandas_input_fn(
@@ -97,3 +96,5 @@ def build_model(directory="train_data.txt"):
 
     tf.logging.info("Training set accuracy: {accuracy}".format(**train_eval_result))
     tf.logging.info("Test set accuracy: {accuracy}".format(**test_eval_result))
+
+build_model()
