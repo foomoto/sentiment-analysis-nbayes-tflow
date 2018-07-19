@@ -36,7 +36,6 @@ def load_directory_data_(directory):
     data['sentiment'] = data['sentiment'].astype(str)
 
     data['label'] = data['sentiment'].apply(lambda x: vectorize_label_(x))
-    print(data['label'].head(8))
     data['sentence'] = data['sentence'].apply(remove_encoding)
 
     text_train, text_test, label_train, label_test = train_test_split(data['sentence'].tolist(),
@@ -71,7 +70,7 @@ def build_model(directory="train_data.csv"):
     estimator = tf.estimator.DNNClassifier(
         hidden_units=[500, 500],
         feature_columns=[embedded_text_feature_column],
-        n_classes=4,
+        n_classes=5,
         optimizer=tf.train.AdamOptimizer(learning_rate=0.003),
         model_dir=MODE_DIR)
 
