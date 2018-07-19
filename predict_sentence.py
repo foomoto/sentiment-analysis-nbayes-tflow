@@ -3,7 +3,7 @@ import pandas as pd
 import tensorflow as tf
 import tensorflow_hub as hub
 from pathlib import Path
-import create_model as model_builder
+import create_sentiment_model as model_builder
 
 MODEL_NAME = 'dnn_estimator_hub'
 MODE_DIR = os.path.join(os.getcwd(), MODEL_NAME)

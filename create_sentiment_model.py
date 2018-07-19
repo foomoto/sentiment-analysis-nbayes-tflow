@@ -49,7 +49,7 @@ def load_directory_data_(directory):
     return train_df, test_df
 
 
-def build_model(directory="/Users/oladeletosin/Downloads/train_data_sentiment.csv"):
+def build_model(directory="train_data.csv"):
     train_df, test_df = load_directory_data_(directory)
     # Training input on the whole training set with no limit on training epochs.
     train_input_fn = tf.estimator.inputs.pandas_input_fn(
